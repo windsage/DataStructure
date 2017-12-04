@@ -8,7 +8,7 @@ import java.util.Stack;
  *
  * @param <T>
  */
-public class ArrayList<T> {
+public class ArrayList {
 
 
     private int theSize;
