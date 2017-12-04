@@ -12,9 +12,9 @@ public class ArrayList {
 
 
     private int theSize;
-    public Node head;
+    private Node head;
 
-    public int getSize() {
+    private int getSize() {
         return this.theSize;
     }
 
@@ -139,5 +139,34 @@ public class ArrayList {
             }
             cur = cur.next;
         }
+    }
+
+
+    /**
+     * 移除倒数第K个节点
+     *
+     * @param k
+     */
+    public void removeLastKthNdoe(int k) {
+        if (k > getSize() || k < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        Node p = head;
+        Node q = head;
+        for (int i = 0; i < k; i++) {
+            p = p.next;
+        }
+        while (p.next != null) {
+            p = p.next;
+            q = q.next;
+        }
+        q.next = q.next.next;
+    }
+
+
+    public void deleteHead(){
+        if (head == null)
+            return;
+        head = head.next;
     }
 }
