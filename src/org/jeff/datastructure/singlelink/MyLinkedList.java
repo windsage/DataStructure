@@ -18,7 +18,7 @@ public class MyLinkedList {
     }
 
     public void addLinkedNode(LinkedNode node) {
-       if (head == null)
+        if (head == null)
             head = node;
     }
 }
