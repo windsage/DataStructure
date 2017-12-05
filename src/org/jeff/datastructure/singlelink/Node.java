@@ -1,4 +1,4 @@
-package org.jeff.datastructure;
+package org.jeff.datastructure.singlelink;
 
 /**
  * 构造一个节点，Node中有一个数据data，以及下一个Node

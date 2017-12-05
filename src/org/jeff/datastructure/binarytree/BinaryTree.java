@@ -1,4 +1,4 @@
-package org.jeff.datastructure;
+package org.jeff.datastructure.binarytree;
 
 import java.util.Stack;
 

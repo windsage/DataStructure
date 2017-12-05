@@ -1,4 +1,4 @@
-package org.jeff.datastructure;
+package org.jeff.datastructure.binarytree;
 
 public class TreeNode {
     public String data;

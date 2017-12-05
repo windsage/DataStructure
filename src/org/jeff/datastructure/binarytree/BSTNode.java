@@ -1,4 +1,4 @@
-package org.jeff.datastructure.genric;
+package org.jeff.datastructure.binarytree;
 
 public class BSTNode<Any extends Comparable<Any>> {
 

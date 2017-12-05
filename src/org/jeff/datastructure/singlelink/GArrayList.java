@@ -1,4 +1,4 @@
-package org.jeff.datastructure.genric;
+package org.jeff.datastructure.singlelink;
 
 /**
  * use generic class over ride arraylist

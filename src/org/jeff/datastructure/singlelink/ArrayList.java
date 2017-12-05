@@ -1,4 +1,4 @@
-package org.jeff.datastructure;
+package org.jeff.datastructure.singlelink;
 
 import java.util.HashSet;
 import java.util.Stack;

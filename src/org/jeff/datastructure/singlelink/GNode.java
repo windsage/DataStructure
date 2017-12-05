@@ -1,4 +1,4 @@
-package org.jeff.datastructure.genric;
+package org.jeff.datastructure.singlelink;
 
 public class GNode<Any extends Comparable<Any>> {
     public Any data;

@@ -1,4 +1,4 @@
-package org.jeff.datastructure;
+package org.jeff.datastructure.singlelink;
 
 public class MyLinkedList {
 

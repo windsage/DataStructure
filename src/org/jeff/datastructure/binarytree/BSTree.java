@@ -1,4 +1,4 @@
-package org.jeff.datastructure.genric;
+package org.jeff.datastructure.binarytree;
 
 import java.util.Stack;
 
@@ -206,4 +206,24 @@ public class BSTree<Any extends Comparable<Any>> {
     }
 
 
+    /**
+     * 二叉树添加节点
+     *
+     * @param root
+     * @param key
+     * @return
+     */
+    private void insertNode(BSTNode<Any> root, Any key) {
+        if (root == null)
+            return;
+        int cmp = key.compareTo(root.data);
+        if (cmp < 0) {
+            if (root.left != null)
+                insertNode(root.left, key);
+        } else if (cmp > 0) {
+            if (root.right != null)
+                insertNode(root.right, key);
+        }
+
+    }
 }
