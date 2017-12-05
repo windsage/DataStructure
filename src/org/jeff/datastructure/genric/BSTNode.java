@@ -1,15 +1,16 @@
 package org.jeff.datastructure.genric;
 
-public class BSTNode<AnyType extends Comparable<AnyType>> {
+public class BSTNode<Any extends Comparable<Any>> {
 
-    public AnyType data;
-    public BSTNode<AnyType> leftChild;
-    public BSTNode<AnyType> rightChild;
+    public Any data;
+    public BSTNode<Any> left;
+    public BSTNode<Any> right;
+    public BSTNode<Any> parent;
 
-    public BSTNode(AnyType data, BSTNode<AnyType> leftChild, BSTNode<AnyType> rightChild) {
+    public BSTNode(Any data, BSTNode<Any> left, BSTNode<Any> right, BSTNode<Any> parent) {
         this.data = data;
-        this.leftChild = leftChild;
-        this.rightChild = rightChild;
+        this.left = left;
+        this.right = right;
+        this.parent = parent;
     }
-
 }
