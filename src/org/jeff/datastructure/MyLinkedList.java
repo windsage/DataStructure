@@ -1,7 +1,5 @@
 package org.jeff.datastructure;
 
-import java.util.Deque;
-
 public class MyLinkedList {
 
     private LinkedNode head;
@@ -19,8 +17,8 @@ public class MyLinkedList {
         this.size = size;
     }
 
-    public void addLinketNode(LinkedNode node) {
-        if (head == null)
+    public void addLinkedNode(LinkedNode node) {
+       if (head == null)
             head = node;
     }
 }

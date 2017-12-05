@@ -66,7 +66,7 @@ public class BinaryTree {
      *
      * @param root
      */
-    public void inOrderTreversal(TreeNode root) {
+    public void inOrderTraversal(TreeNode root) {
         if (root == null)
             return;
         Stack<TreeNode> stack = new Stack<>();
@@ -134,4 +134,5 @@ public class BinaryTree {
         BinaryTree tree = new BinaryTree();
         tree.postOrderTraversal(a);
     }
+
 }
