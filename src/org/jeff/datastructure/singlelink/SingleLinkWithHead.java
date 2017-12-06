@@ -8,7 +8,7 @@ import java.util.Stack;
  *
  * @param <T>
  */
-public class SingleLink<T> {
+public class SingleLinkWithHead<T> {
     private SingleNode<T> head;
 
     private int size;
@@ -23,9 +23,23 @@ public class SingleLink<T> {
         }
     }
 
-    public SingleLink() {
+    /**
+     * 构造函数
+     * 这里是关键，区别了有头节点和无头节点的链表
+     * 这里的head≠null，但是head的value是null,head的next节点是null
+     */
+    public SingleLinkWithHead() {
         this.head = new SingleNode<T>(null, null);
         this.size = 0;
+    }
+
+    /**
+     * 判断链表是否为空
+     *
+     * @return
+     */
+    private boolean isEmpty() {
+        return head.next == null;
     }
 
     /**
@@ -143,6 +157,9 @@ public class SingleLink<T> {
         }
     }
 
+    /**
+     * 删除重复数据
+     */
     private void removeDuplication() {
         HashSet<T> set = new HashSet<>();
         SingleNode<T> previous = head;
@@ -159,5 +176,27 @@ public class SingleLink<T> {
             }
         }
     }
+
+
+    /**
+     * 移除倒数第K个节点
+     *
+     * @param k
+     */
+    private void removeLastKthNode(int k) {
+        if (k < 0 || k > size)
+            throw new ArrayIndexOutOfBoundsException();
+        SingleNode<T> temp = head;
+        for (int i = 0; i < k; i++) {
+            temp = temp.next;
+        }
+        SingleNode<T> previous = head;
+        while (temp.next != null) {
+            temp = temp.next;
+            previous = previous.next;
+        }
+        previous.next = previous.next.next;
+    }
+
 
 }
