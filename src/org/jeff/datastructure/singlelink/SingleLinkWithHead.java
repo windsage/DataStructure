@@ -240,4 +240,44 @@ public class SingleLinkWithHead<T> {
             first = temp;
         }
     }
+
+    /**
+     * 查找一个未知长度的链表的中间结点
+     *
+     * @return
+     */
+    private SingleNode<T> findMiddle() {
+        SingleNode<T> p = head;
+        SingleNode<T> q = head;
+        while (q != null && q.next != null && q.next.next != null) {
+            p = p.next;
+            q = q.next.next;
+        }
+        return p;
+    }
+
+
+    /**
+     * 判断两个链表是否相交
+     * 参考http://blog.csdn.net/zengzhen_csdn/article/details/49761869
+     * 此方法时间复杂度为O(m+n)
+     *
+     * @param h1
+     * @param h2
+     * @return
+     */
+    private boolean isIntersect(SingleNode<T> h1, SingleNode<T> h2) {
+        if (h1 == null || h2 == null)
+            return false;
+        while (h1 != null) {
+            h1 = h1.next;
+        }
+        while (h2 != null) {
+            h2 = h2.next;
+        }
+        return h1 == h2;
+    }
+
+    
+
 }
