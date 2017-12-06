@@ -198,5 +198,46 @@ public class SingleLinkWithHead<T> {
         previous.next = previous.next.next;
     }
 
+    /**
+     * 反转链表递归
+     */
+    private SingleNode<T> reverse(SingleNode<T> node) {
+        if (node == null || node.next == null)
+            return node;
+        SingleNode<T> previous = reverse(node.next);
+        node.next.next = node;
+        node.next = null;
+        return previous;
+    }
 
+    /**
+     * 链表反转非递归
+     *
+     * @param head
+     * @return
+     */
+    private SingleNode<T> reverse2(SingleNode<T> head) {
+        SingleNode<T> previous = null;
+        while (head != null) {
+            SingleNode<T> temp = head.next;
+            head.next = previous;
+            previous = head;
+            head = temp;
+        }
+        return previous;
+    }
+
+    private void reverse3(SingleNode<T> head) {
+        Stack<SingleNode<T>> stack = new Stack<>();
+        while (head != null) {
+            stack.push(head);
+            head = head.next;
+        }
+        SingleNode<T> first = null;
+        while (!stack.isEmpty()) {
+            SingleNode<T> temp = stack.pop();
+            first.next = temp;
+            first = temp;
+        }
+    }
 }
