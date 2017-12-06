@@ -34,16 +34,12 @@ public class SingleLink<T> {
      * @param node
      */
     private void insert(SingleNode<T> node) {
-        if (head == null)
-            head = node;
-        else {
-            SingleNode<T> temp = head;
-            while (temp.next != null) {
-                temp = temp.next;
-            }
-            temp.next = node;
-            size++;
+        SingleNode<T> temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
         }
+        temp.next = node;
+        size++;
     }
 
     /**
@@ -57,7 +53,7 @@ public class SingleLink<T> {
             throw new ArrayIndexOutOfBoundsException();
         }
         if (head == null && index == 0)
-            head = node;
+            head.next = node;
         else {
             int currentIndex = 0;
             SingleNode<T> temp = head;
@@ -147,11 +143,20 @@ public class SingleLink<T> {
         }
     }
 
-    private void removeDuplication(){
+    private void removeDuplication() {
         HashSet<T> set = new HashSet<>();
-        while (head != null){
-            head = head.next;
-
+        SingleNode<T> previous = head;
+        SingleNode<T> current = head.next;
+        set.add(head.data);
+        while (previous != null) {
+            if (!set.contains(previous.data)) {
+                set.add(previous.data);
+                previous = current;
+                current = current.next;
+            } else {
+                previous.next = current.next;
+                current = current.next;
+            }
         }
     }
 
