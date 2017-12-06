@@ -10,7 +10,7 @@ import java.util.Stack;
  */
 public class ArrayList {
     /**
-     * 构造一个节点，Node中有一个数据data，以及下一个Node
+     * 构造一个结点，Node中有一个数据data，以及下一个Node
      */
     private class Node {
         public int data;
@@ -30,7 +30,7 @@ public class ArrayList {
     }
 
     public void addNode(Node node) {
-        //判断头节点是否为空
+        //判断头结点是否为空
         if (head == null) {
             head = node;
         } else {
@@ -79,7 +79,7 @@ public class ArrayList {
     }
 
     public void deleteNode(Node node) {
-        //判断这个节点是否头节点
+        //判断这个结点是否头结点
         if (head == node) {
             head = null;
             theSize = 0;
@@ -95,7 +95,7 @@ public class ArrayList {
 
 
     /**
-     * 这是用一个栈存储了除了index外的节点，在用pop的方式弹出
+     * 这是用一个栈存储了除了index外的结点，在用pop的方式弹出
      * 其中peek表示查看栈顶对象，并不弹出
      *
      * @param index
@@ -117,7 +117,7 @@ public class ArrayList {
     }
 
     /**
-     * 此方法的关键在于把每个节点往前移动一个
+     * 此方法的关键在于把每个结点往前移动一个
      *
      * @param node
      */
@@ -153,7 +153,7 @@ public class ArrayList {
 
 
     /**
-     * 移除倒数第K个节点
+     * 移除倒数第K个结点
      *
      * @param k
      */

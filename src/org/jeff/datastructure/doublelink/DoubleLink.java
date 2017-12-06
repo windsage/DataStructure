@@ -9,7 +9,7 @@ public class DoubleLink<T> {
     private int size;
 
     /**
-     * 双向链表的节点
+     * 双向链表的结点
      *
      * @param <T>
      */
@@ -44,7 +44,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 查找指定的节点
+     * 查找指定的结点
      *
      * @param index
      * @return
@@ -71,7 +71,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 获取指定位置节点的值
+     * 获取指定位置结点的值
      *
      * @param index
      * @return
@@ -81,7 +81,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 最后一个节点的值
+     * 最后一个结点的值
      *
      * @return
      */
@@ -90,7 +90,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 在指定位置插入节点
+     * 在指定位置插入结点
      *
      * @param index
      * @param value
@@ -111,7 +111,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 表尾增加节点
+     * 表尾增加结点
      *
      * @param value
      */
@@ -123,7 +123,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 移除指定位置的节点
+     * 移除指定位置的结点
      *
      * @param index
      */
@@ -135,7 +135,7 @@ public class DoubleLink<T> {
     }
 
     /**
-     * 删除指定位置的节点
+     * 删除指定位置的结点
      */
     private void deleteLast() {
         remove(size - 1);

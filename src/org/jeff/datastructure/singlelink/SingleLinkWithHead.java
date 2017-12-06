@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Stack;
 
 /**
- * 带头节点的单链表
+ * 带头结点的单链表
  *
  * @param <T>
  */
@@ -25,8 +25,8 @@ public class SingleLinkWithHead<T> {
 
     /**
      * 构造函数
-     * 这里是关键，区别了有头节点和无头节点的链表
-     * 这里的head≠null，但是head的value是null,head的next节点是null
+     * 这里是关键，区别了有头结点和无头结点的链表
+     * 这里的head≠null，但是head的value是null,head的next结点是null
      */
     public SingleLinkWithHead() {
         this.head = new SingleNode<T>(null, null);
@@ -43,7 +43,7 @@ public class SingleLinkWithHead<T> {
     }
 
     /**
-     * 添加一个节点
+     * 添加一个结点
      *
      * @param node
      */
@@ -57,7 +57,7 @@ public class SingleLinkWithHead<T> {
     }
 
     /**
-     * 指定位置添加一个节点
+     * 指定位置添加一个结点
      *
      * @param node
      * @param index
@@ -82,7 +82,7 @@ public class SingleLinkWithHead<T> {
     }
 
     /**
-     * 移除一个节点(循环)
+     * 移除一个结点(循环)
      *
      * @param node
      */
@@ -101,7 +101,7 @@ public class SingleLinkWithHead<T> {
     }
 
     /**
-     * 删除指定索引的节点
+     * 删除指定索引的结点
      *
      * @param index
      */
@@ -119,7 +119,7 @@ public class SingleLinkWithHead<T> {
     }
 
     /**
-     * 删除节点2
+     * 删除结点2
      * 此处需要确认
      *
      * @param node
@@ -137,7 +137,7 @@ public class SingleLinkWithHead<T> {
     }
 
     /**
-     * 用栈的方式删除指定索引的节点
+     * 用栈的方式删除指定索引的结点
      *
      * @param index
      */
@@ -179,7 +179,7 @@ public class SingleLinkWithHead<T> {
 
 
     /**
-     * 移除倒数第K个节点
+     * 移除倒数第K个结点
      *
      * @param k
      */

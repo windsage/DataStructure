@@ -3,6 +3,20 @@ package org.jeff.datastructure.binarytree;
 import java.util.Stack;
 
 public class BinaryTree<Any extends Comparable<Any>> {
+    private class BinaryNode<Any extends Comparable<Any>> {
+
+        public Any data;
+        public BinaryNode<Any> left;
+        public BinaryNode<Any> right;
+        public BinaryNode<Any> parent;
+
+        public BinaryNode(Any data, BinaryNode<Any> left, BinaryNode<Any> right, BinaryNode<Any> parent) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+            this.parent = parent;
+        }
+    }
 
     private BinaryNode<Any> mRoot;
 
@@ -26,9 +40,9 @@ public class BinaryTree<Any extends Comparable<Any>> {
 
     /**
      * 前序遍历迭代法
-     * 先入栈根节点，输出根节点val值，再先后入栈其右节点、左结点；
-     * 2，出栈左节点，输出其val值，再入栈该左节点的右节点、左节点；直到遍历完该左节点所在子树。
-     * 3，再出栈右节点，输出其val值，再入栈该右节点的右节点、左节点；直到遍历完该右节点所在子树。
+     * 先入栈根结点，输出根结点val值，再先后入栈其右结点、左结点；
+     * 2，出栈左结点，输出其val值，再入栈该左结点的右结点、左结点；直到遍历完该左结点所在子树。
+     * 3，再出栈右结点，输出其val值，再入栈该右结点的右结点、左结点；直到遍历完该右结点所在子树。
      *
      * @param root
      */
@@ -62,11 +76,11 @@ public class BinaryTree<Any extends Comparable<Any>> {
 
     /**
      * 中序遍历迭代法
-     * 1、首先从根节点出发一路向左，入栈所有的左节点；
-     * 2、出栈一个节点，输出该节点val值，查询该节点是否存在右节点，
-     * 若存在则从该右节点出发一路向左入栈该右节点所在子树所有的左节点；
-     * 3、若不存在右节点，则出栈下一个节点，输出节点val值，同步骤2操作；
-     * 4、直到节点为null，且栈为空。
+     * 1、首先从根结点出发一路向左，入栈所有的左结点；
+     * 2、出栈一个结点，输出该结点val值，查询该结点是否存在右结点，
+     * 若存在则从该右结点出发一路向左入栈该右结点所在子树所有的左结点；
+     * 3、若不存在右结点，则出栈下一个结点，输出结点val值，同步骤2操作；
+     * 4、直到结点为null，且栈为空。
      *
      * @param root
      */
@@ -169,7 +183,7 @@ public class BinaryTree<Any extends Comparable<Any>> {
 
 
     /**
-     * 查找最大的节点
+     * 查找最大的结点
      *
      * @param root
      * @return
@@ -183,7 +197,7 @@ public class BinaryTree<Any extends Comparable<Any>> {
     }
 
     /**
-     * 查找最小的节点
+     * 查找最小的结点
      *
      * @param root
      * @return
@@ -198,7 +212,7 @@ public class BinaryTree<Any extends Comparable<Any>> {
 
     /**
      * 查找前驱
-     * 节点的前驱："二叉树中数据值小于该结点"的"最大结点"。
+     * 结点的前驱："二叉树中数据值小于该结点"的"最大结点"。
      *
      * @param root
      * @return
@@ -206,17 +220,45 @@ public class BinaryTree<Any extends Comparable<Any>> {
     private BinaryNode<Any> findPredecessor(BinaryNode<Any> root) {
         if (root.left != null)
             return findMax(root.left);
-        BinaryNode<Any> node = root.parent;
-        while (node != null && root == node.parent) {
-            root = node;
-            node = node.parent;
+        else {
+            // 如果x没有左孩子。则x有以下两种可能：
+            // (01) x是"一个右孩子"，则"x的前驱结点"为 "它的父结点"。
+            // (01) x是"一个左孩子"，则查找"x的最低的父结点，并且该父结点要具有右孩子"，找到的这个"最低的父结点"就是"x的前驱结点"。
+            BinaryNode<Any> node = root.parent;
+            while (node != null && root == node.parent) {
+                root = node;
+                node = node.parent;
+            }
+            return node;
         }
-        return node;
     }
 
+    /**
+     * 查找后继
+     * 结点的后继：查找"二叉树中数据值大于该结点"的"最小结点"。
+     *
+     * @param x
+     * @return
+     */
+    private BinaryNode<Any> findSuccessor(BinaryNode<Any> x) {
+        if (x.right != null) {
+            return findMin(x.right);
+        } else {
+            // 如果x没有右孩子。则x有以下两种可能：
+            // (01) x是"一个左孩子"，则"x的后继结点"为 "它的父结点"。
+            // (02) x是"一个右孩子"，则查找"x的最低的父结点，并且该父结点要具有左孩子"，找到的这个"最低的父结点"就是"x的后继结点"。
+            BinaryNode<Any> y = x.parent;
+            while ((y != null) && (x == y.right)) {
+                x = y;
+                y = y.parent;
+            }
+
+            return y;
+        }
+    }
 
     /**
-     * 二叉树添加节点
+     * 二叉树添加结点
      *
      * @param root
      * @param key
@@ -235,4 +277,30 @@ public class BinaryTree<Any extends Comparable<Any>> {
         }
 
     }
+
+    /**
+     * 二叉树删除结点
+     *
+     * @param x
+     * @param root
+     * @return
+     */
+    private BinaryNode<Any> remove(Any x, BinaryNode<Any> root) {
+        if (root == null)
+            return root;
+        int cmp = x.compareTo(root.data);
+        if (cmp < 0) {
+            remove(x, root.left);
+        } else if (cmp > 0) {
+            remove(x, root.right);
+        } else if (root.left != null && root.right != null) {
+            //cmp = 0
+            root.data = findMin(root.right).data;
+            root.right = remove(root.data, root.right);
+        } else {
+            root = root.left != null ? root.left : root.right;
+        }
+        return root;
+    }
+
 }

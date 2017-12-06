@@ -1,7 +1,7 @@
 package org.jeff.datastructure.singlelink;
 
 /**
- * 这是一个不带头节点的单项链表
+ * 这是一个不带头结点的单项链表
  *
  * @param <T>
  */
