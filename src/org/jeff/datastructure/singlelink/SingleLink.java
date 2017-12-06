@@ -1,5 +1,13 @@
 package org.jeff.datastructure.singlelink;
 
+import java.util.HashSet;
+import java.util.Stack;
+
+/**
+ * 带头节点的单链表
+ *
+ * @param <T>
+ */
 public class SingleLink<T> {
     private SingleNode<T> head;
 
@@ -16,7 +24,7 @@ public class SingleLink<T> {
     }
 
     public SingleLink() {
-        this.head = null;
+        this.head = new SingleNode<T>(null, null);
         this.size = 0;
     }
 
@@ -34,8 +42,8 @@ public class SingleLink<T> {
                 temp = temp.next;
             }
             temp.next = node;
+            size++;
         }
-        size++;
     }
 
     /**
@@ -59,6 +67,7 @@ public class SingleLink<T> {
             }
             node.next = temp.next;
             temp.next = node;
+            size++;
         }
     }
 
@@ -68,28 +77,82 @@ public class SingleLink<T> {
      * @param node
      */
     private void remove(SingleNode<T> node) {
-        if (head == null)
-            return;
-        SingleNode<T> temp = head;
-        while (temp.next != node) {
-            temp = temp.next;
+        if (head == node) {
+            head = null;
+            size = 0;
+        } else {
+            SingleNode<T> temp = head;
+            while (temp.next != node) {
+                temp = temp.next;
+            }
+            temp.next = node.next;
+            size--;
         }
-        temp.next = node.next;
-        size--;
+    }
+
+    /**
+     * 删除指定索引的节点
+     *
+     * @param index
+     */
+    private void removeByIndex(int index) {
+        if (index < 1 || index > size - 1) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        int current = 0;
+        SingleNode<T> temp = head;
+        while (current < index) {
+            temp = temp.next;
+            current++;
+        }
+        temp.next = temp.next.next;
     }
 
     /**
      * 删除节点2
+     * 此处需要确认
      *
      * @param node
      */
     private void remove2(SingleNode<T> node) {
-        if (head == null)
-            return;
-        SingleNode<T> temp = node.next;
-        node.data = temp.data;
-        node.next = temp.next;
+        if (head == node) {
+            head = null;
+            size = 0;
+        } else {
+            SingleNode<T> temp = node.next;
+            node.data = temp.data;
+            node.next = temp.next;
+            size--;
+        }
     }
 
-//    private void
+    /**
+     * 用栈的方式删除指定索引的节点
+     *
+     * @param index
+     */
+    private void removeByStack(int index) {
+        Stack<SingleNode<T>> stack = new Stack<>();
+        stack.push(head);
+        int current = 0;
+        while (head != null) {
+            head = head.next;
+            current++;
+            if (current != index)
+                stack.push(head);
+        }
+        while (!stack.isEmpty()) {
+            stack.peek().next = head;
+            head = stack.pop();
+        }
+    }
+
+    private void removeDuplication(){
+        HashSet<T> set = new HashSet<>();
+        while (head != null){
+            head = head.next;
+
+        }
+    }
+
 }

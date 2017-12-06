@@ -1,5 +1,9 @@
 package org.jeff.datastructure.doublelink;
 
+/**
+ * 这是一个带头结点的双向链表
+ * @param <T>
+ */
 public class DoubleLink<T> {
     private DoubleNode<T> head;
     private int size;

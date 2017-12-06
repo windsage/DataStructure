@@ -11,7 +11,6 @@ import java.util.Stack;
 public class ArrayList {
     /**
      * 构造一个节点，Node中有一个数据data，以及下一个Node
-     *
      */
     private class Node {
         public int data;
@@ -34,7 +33,6 @@ public class ArrayList {
         //判断头节点是否为空
         if (head == null) {
             head = node;
-            theSize++;
         } else {
             Node temp = head;
             while (temp != null) {
@@ -176,7 +174,7 @@ public class ArrayList {
     }
 
 
-    public void deleteHead(){
+    public void deleteHead() {
         if (head == null)
             return;
         head = head.next;
