@@ -9,6 +9,18 @@ import java.util.Stack;
  * @param <T>
  */
 public class ArrayList {
+    /**
+     * 构造一个节点，Node中有一个数据data，以及下一个Node
+     *
+     */
+    private class Node {
+        public int data;
+        public Node next;
+
+        public Node(int data) {
+            this.data = data;
+        }
+    }
 
 
     private int theSize;
