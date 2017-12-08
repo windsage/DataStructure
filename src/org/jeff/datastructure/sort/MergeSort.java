@@ -80,5 +80,6 @@ public class MergeSort {
 
     public static void main(String[] args) {
         MergeSort.mergeSortUp2Down(TEST_ARRAY, 0, 5);
+        MergeSort.mergeSortDown2Up(TEST_ARRAY);
     }
 }
