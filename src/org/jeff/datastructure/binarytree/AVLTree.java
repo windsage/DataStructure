@@ -227,14 +227,44 @@ public class AVLTree<T extends Comparable<T>> {
             return null;
         int cmp = z.key.compareTo(tree.key);
         if (cmp > 0) {
+            //需要删除的结点在右子树上
             tree.right = remove(tree.right, z);
+            //只会出现左子树高度大于或者等于右子树的高度的情况
+            if (height(tree.left) - height(tree.right) > 1) {
+                AVLTreeNode<T> l = tree.left;
+                if (height(l.left) > height(l.right))
+                    tree = leftLeftRotation(tree);
+                else
+                    tree = leftRightRotation(tree);
+            }
         } else if (cmp < 0) {
             tree.left = remove(tree.left, z);
-            //删除左侧之后可能导致右侧不平衡
-            if (height(tree.right)-height(tree.left)>1){
+            //需要删除的结点在左子树
+            if (height(tree.right) - height(tree.left) > 1) {
+                AVLTreeNode<T> r = tree.right;
+                if (height(r.left) > height(r.right))
+                    tree = rightLeftRotation(tree);
+                else
+                    tree = rightRightRotation(tree);
 
             }
+        } else {
+            if (tree.left != null && tree.right != null) {
+                if (height(tree.left) > height(tree.right)) {
+                    AVLTreeNode<T> max = maximum(tree.left);
+                    tree.key = max.key;
+                    tree.left = remove(tree.left, max);
+                } else {
+                    AVLTreeNode<T> min = minimum(tree.right);
+                    tree.key = min.key;
+                    tree.right = remove(tree.right, min);
+                }
+            } else {
+                tree = tree.left != null ? tree.left : tree.right;
+            }
         }
+        if(tree != null)
+            tree.height = max(height(tree.left), height(tree.right)) + 1;
         return tree;
     }
 
