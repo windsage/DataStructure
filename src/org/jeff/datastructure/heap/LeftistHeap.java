@@ -180,7 +180,7 @@ public class LeftistHeap<T extends Comparable<T>> {
             if(direction==0)    // heap是根节点
                 System.out.printf("%2d(%d) is root\n", heap.key, heap.npl);
             else                // heap是分支节点
-                System.out.printf("%2d(%d) is %2d's %6s child\n", heap.key, heap.npl, key, direction==1?"right" : "left");
+                System.out.printf("%2d(%d) is %2d's %6s child\n", heap.key, heap.npl, key, direction==1?"right" : "leftChild");
 
             print(heap.left, heap.key, -1);
             print(heap.right,heap.key,  1);

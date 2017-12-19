@@ -151,7 +151,7 @@ public class SkewHeap<T extends Comparable<T>> {
             if (direction == 0)    // heap是根节点
                 System.out.printf("%2d is root\n", heap.key);
             else                // heap是分支节点
-                System.out.printf("%2d is %2d's %6s child\n", heap.key, key, direction == 1 ? "right" : "left");
+                System.out.printf("%2d is %2d's %6s child\n", heap.key, key, direction == 1 ? "right" : "leftChild");
 
             print(heap.left, heap.key, -1);
             print(heap.right, heap.key, 1);
