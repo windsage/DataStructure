@@ -21,6 +21,55 @@ public class SkewHeap<T extends Comparable<T>> {
 
     private SkewNode<T> mRoot;
 
+    public SkewHeap() {
+        mRoot = null;
+    }
+
+    /*
+     * 前序遍历"斜堆"
+     */
+    private void preOrder(SkewNode<T> heap) {
+        if (heap != null) {
+            System.out.print(heap.key + " ");
+            preOrder(heap.left);
+            preOrder(heap.right);
+        }
+    }
+
+    public void preOrder() {
+        preOrder(mRoot);
+    }
+
+    /*
+     * 中序遍历"斜堆"
+     */
+    private void inOrder(SkewNode<T> heap) {
+        if (heap != null) {
+            inOrder(heap.left);
+            System.out.print(heap.key + " ");
+            inOrder(heap.right);
+        }
+    }
+
+    public void inOrder() {
+        inOrder(mRoot);
+    }
+
+    /*
+     * 后序遍历"斜堆"
+     */
+    private void postOrder(SkewNode<T> heap) {
+        if (heap != null) {
+            postOrder(heap.left);
+            postOrder(heap.right);
+            System.out.print(heap.key + " ");
+        }
+    }
+
+    public void postOrder() {
+        postOrder(mRoot);
+    }
+
     private SkewNode<T> merge(SkewNode<T> x, SkewNode<T> y) {
         if (x == null) return y;
         if (y == null) return x;
@@ -55,14 +104,62 @@ public class SkewHeap<T extends Comparable<T>> {
     }
 
 
-    public T remove(T key) {
-        SkewNode<T> node = new SkewNode<>(key, null, null);
+    public T remove() {
+        if (this.mRoot == null)
+            return null;
+
+        T key = this.mRoot.key;
+        SkewNode<T> l = this.mRoot.left;
+        SkewNode<T> r = this.mRoot.right;
+
+        this.mRoot = null;          // 删除根节点
+        this.mRoot = merge(l, r);   // 合并左右子树
+
+        return key;
     }
 
-    private SkewNode<T> remove(SkewNode<T> tree) {
-        if (tree == null)
-            return null;
-        tree = merge(tree.left, tree.right);
-        return tree;
+    /*
+     * 销毁斜堆
+     */
+    private void destroy(SkewNode<T> heap) {
+        if (heap == null)
+            return;
+
+        if (heap.left != null)
+            destroy(heap.left);
+        if (heap.right != null)
+            destroy(heap.right);
+
+        heap = null;
+    }
+
+    public void clear() {
+        destroy(mRoot);
+        mRoot = null;
+    }
+
+    /*
+     * 打印"斜堆"
+     *
+     * key        -- 节点的键值
+     * direction  --  0，表示该节点是根节点;
+     *               -1，表示该节点是它的父结点的左孩子;
+     *                1，表示该节点是它的父结点的右孩子。
+     */
+    private void print(SkewNode<T> heap, T key, int direction) {
+        if (heap != null) {
+            if (direction == 0)    // heap是根节点
+                System.out.printf("%2d is root\n", heap.key);
+            else                // heap是分支节点
+                System.out.printf("%2d is %2d's %6s child\n", heap.key, key, direction == 1 ? "right" : "left");
+
+            print(heap.left, heap.key, -1);
+            print(heap.right, heap.key, 1);
+        }
+    }
+
+    public void print() {
+        if (mRoot != null)
+            print(mRoot, mRoot.key, 0);
     }
 }

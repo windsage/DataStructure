@@ -25,6 +25,9 @@ public class LeftistHeap<T extends Comparable<T>> {
 
     private LeftistNode<T> mRoot;
 
+    public LeftistHeap() {
+        this.mRoot = null;
+    }
 
     /*
      * 前序遍历"左倾堆"
