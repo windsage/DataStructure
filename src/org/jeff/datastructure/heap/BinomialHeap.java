@@ -183,4 +183,147 @@ public class BinomialHeap<T extends Comparable<T>> {
         mRoot = union(mRoot, node);
     }
 
+    /**
+     * 翻转二项树
+     *
+     * @param root
+     * @return
+     */
+    private BinomialNode<T> reserse(BinomialNode<T> root) {
+        BinomialNode<T> temp;
+        BinomialNode<T> tail = null;
+        if (root == null)
+            return null;
+        root.parent = null;
+        while (root.next != null) {
+            temp = root.next;
+            root.next = tail;
+            tail = root;
+            root = temp;
+            root.parent = null;
+        }
+        root.next = tail;
+        return root;
+    }
+
+    /**
+     * 移除关键值为key的结点
+     *
+     * @param root
+     * @param key
+     * @return
+     */
+    private BinomialNode<T> remove(BinomialNode<T> root, T key) {
+        if (root == null)
+            return null;
+        BinomialNode<T> node = search(root, key);
+        if (node == null)
+            return root;
+        BinomialNode<T> parent = node.parent;
+        while (parent != null) {
+            //这里只交换key的值，如果交换结点就需要改变指向
+            T tmp = node.key;
+            node.key = parent.key;
+            parent.key = tmp;
+
+            node = parent;
+            parent = parent.parent;
+        }
+        //这时候key已经成为某二项树的根结点,找node为根的二项树的前一个二项树
+        BinomialNode<T> prev = null;
+        BinomialNode<T> pos = root;
+        while (pos != node) {
+            prev = pos;
+            pos = pos.next;
+        }
+        if (prev != null) {
+            prev.next = node.next;
+        } else {
+            //要删除的刚好是第一个结点
+            root = node.next;
+        }
+        root = union(root, reserse(node));
+        return root;
+    }
+
+
+    /*
+     * 减少关键字的值：将二项堆中的节点node的键值减小为key。
+     */
+    private void decreaseKey(BinomialNode<T> node, T key) {
+        if (key.compareTo(node.key) >= 0 || contains(key) == true) {
+            System.out.println("decrease failed: the new key(" + key + ") is existed already, or is no smaller than current key(" + node.key + ")");
+            return;
+        }
+        node.key = key;
+
+        BinomialNode<T> child, parent;
+        child = node;
+        parent = node.parent;
+        while (parent != null && child.key.compareTo(parent.key) < 0) {
+            // 交换parent和child的数据
+            T tmp = parent.key;
+            parent.key = child.key;
+            child.key = tmp;
+
+            child = parent;
+            parent = child.parent;
+        }
+    }
+
+
+    private void increaseKey(BinomialNode<T> node, T key) {
+        if (key.compareTo(node.key) <= 0 || contains(key))
+            return;
+        node.key = key;
+        BinomialNode<T> child = node.leftChild;
+        while (child != null) {
+            if (key.compareTo(child.key) > 0) {
+                //找到兄弟结点中的最小结点
+                BinomialNode<T> least = child;
+                while (child.next != null) {
+                    if (child.next.key.compareTo(least.key) < 0)
+                        least = child.next;
+                    child = child.next;
+                }
+                //交换两个结点的key值
+                T tmp = least.key;
+                least.key = node.key;
+                node.key = least.key;
+                //循环下一次
+                node = least;
+                child = least.leftChild;
+            }else {
+                child = child.next;
+            }
+        }
+    }
+
+    /*
+     * 更新二项堆的节点node的键值为key
+     */
+    private void updateKey(BinomialNode<T> node, T key) {
+        if (node == null)
+            return ;
+
+        int cmp = key.compareTo(node.key);
+        if(cmp < 0)                            // key < node.key
+            decreaseKey(node, key);
+        else if(cmp > 0)                       // key > node.key
+            increaseKey(node, key);
+        else
+            System.out.println("No need to update!!!");
+    }
+
+    /*
+     * 将二项堆中键值oldkey更新为newkey
+     */
+    public void update(T oldkey, T newkey) {
+        BinomialNode<T> node;
+
+        node = search(mRoot, oldkey);
+        if (node != null)
+            updateKey(node, newkey);
+    }
+
 }
