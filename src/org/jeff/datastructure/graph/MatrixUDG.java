@@ -47,6 +47,70 @@ public class MatrixUDG {
     }
 
 
+    boolean[] visited;
+
+    public void DFS() {
+        visited = new boolean[mVexs.length];
+        for (int i = 0; i < mVexs.length; i++) {
+            if (!visited[i]) {
+                DFS(i);
+            }
+        }
+
+    }
+
+    private int firstVertex(int i) {
+//        if (i < 0 || i >= mVexs.length)
+//            return -1;
+        for (int k = 0; k < mVexs.length; k++) {
+            if (mMatrix[k][i] == 1)
+                return k;
+        }
+        return -1;
+    }
+
+    private int nextVertex(int i, int k) {
+        for (k = k + 1; k < mVexs.length; k++) {
+            if (mMatrix[k][i] == 1)
+                return k;
+        }
+        return -1;
+    }
+
+    private void DFS(int j) {
+        visited[j] = true;
+        System.out.printf("%c ", mVexs[j]);
+        for (int k = firstVertex(j); k >= 0; k = nextVertex(j, k)) {
+            if (!visited[k])
+                DFS(k);
+        }
+
+    }
+
+    public void BFS() {
+        boolean[] mark = new boolean[mVexs.length];
+        int head = 0;
+        int rear = 0;
+        int[] queue = new int[mVexs.length];
+        for (int i = 0; i < mVexs.length; i++) {
+            if (!mark[i]) {
+                mark[i] = true;
+                System.out.printf("%c ", mVexs[i]);
+                queue[rear++] = i;
+            }
+            while (head != rear) {
+                int j = queue[head++];
+                for (int k = firstVertex(j); k >= 0; k = nextVertex(j, k)) {
+                    if (!mark[k]) {
+                        mark[k] = true;
+                        System.out.printf("%c ", mVexs[k]);
+                        queue[rear++] = k;
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         char[] vexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
         char[][] edges = new char[][]{
@@ -59,11 +123,11 @@ public class MatrixUDG {
                 {'F', 'G'}};
         MatrixUDG pG;
 
-        // 自定义"图"(输入矩阵队列)
-        //pG = new MatrixUDG();
         // 采用已有的"图"
         pG = new MatrixUDG(vexs, edges);
 
         pG.print();   // 打印图
+        pG.DFS();
+        pG.BFS();
     }
 }
