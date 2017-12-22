@@ -88,6 +88,66 @@ public class ListUDG {
         }
     }
 
+
+    /**
+     * 深度遍历
+     */
+    public void DFS() {
+        boolean[] visited = new boolean[mVexs.length];
+        for (int i = 0; i < mVexs.length; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                System.out.printf("%c ", mVexs[i].data);
+                DFS(i, visited);
+            }
+
+        }
+        System.out.println();
+    }
+
+    private void DFS(int i, boolean[] visited) {
+        ENode nextVertex = mVexs[i].firstEdge;
+        while (nextVertex != null) {
+            int index = nextVertex.ivex;
+            if (!visited[index]) {
+                visited[index] = true;
+                System.out.printf("%c ", mVexs[index].data);
+                DFS(index, visited);
+            }
+            nextVertex = nextVertex.nextEdge;
+        }
+
+    }
+
+
+    public void BFS() {
+        int[] queue = new int[mVexs.length];
+        //访问标记
+        boolean[] visited = new boolean[mVexs.length];
+        int head = 0;
+        int rear = 0;
+        for (int i = 0; i < mVexs.length; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                System.out.printf("%c ", mVexs[i].data);
+                queue[rear++] = i;
+            }
+            while (head != rear) {
+                int j = queue[head++];
+                ENode node = mVexs[j].firstEdge;
+                while (node != null) {
+                    if (!visited[node.ivex]) {
+                        visited[node.ivex] = true;
+                        System.out.printf("%c ", mVexs[node.ivex].data);
+                        queue[rear++] = node.ivex;
+                    }
+                    node = node.nextEdge;
+                }
+            }
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         char[] vexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
         char[][] edges = new char[][]{
@@ -106,5 +166,7 @@ public class ListUDG {
         pG = new ListUDG(vexs, edges);
 
         pG.print();   // 打印图
+        pG.DFS();
+        pG.BFS();
     }
 }
