@@ -42,7 +42,7 @@ public class BubbleSort {
                     array[j + 1] = temp;
                     flag = true;
                 }
-                if (flag)
+                if (!flag)
                     break;
             }
         }
