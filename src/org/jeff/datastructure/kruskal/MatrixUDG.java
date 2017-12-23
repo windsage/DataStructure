@@ -69,26 +69,53 @@ public class MatrixUDG {
         return edges;
     }
 
-    //边
-    private static class EData {
-        char start;
-        char end;
-        int weight;
 
-        public EData(char start, char end, int weight) {
-            this.start = start;
-            this.end = end;
-            this.weight = weight;
+    private int getPosition(char ch) {
+        for (int i = 0; i < mVexs.length; i++) {
+            if (ch == mVexs[i])
+                return i;
+
         }
+        return -1;
     }
-
 
     public void kruskal() {
+        int index = 0;
         EData[] edges = sortEdges(getEdges());
+        EData[] rets = new EData[mEdgNum];
+        int[] vends = new int[edges.length];
         for (int i = 0; i < edges.length; i++) {
             System.out.print(edges[i].weight + " ");
+            int p1 = getPosition(edges[i].start);      // 获取第i条边的"起点"的序号
+            int p2 = getPosition(edges[i].end);        // 获取第i条边的"终点"的序号
+            int m = getEnd(p1, vends);
+            int n = getEnd(p2, vends);
+            if (m != n) {
+                //m的终点是N
+                vends[m] = n;
+                rets[index++] = edges[i];
+            }
+
+        }
+        System.out.println(Arrays.toString(vends));
+        //统计最小生成树的权重
+        int weight = 0;
+        for (int i = 0; i < index; i++) {
+            weight += rets[i].weight;
+        }
+        System.out.println("Kruskal = " + weight);
+        for (EData data : rets) {
+            if (data != null)
+                System.out.printf("%c,%c ", data.start, data.end);
         }
     }
+
+    private int getEnd(int i, int[] vends) {
+        while (vends[i] != 0)
+            i = vends[i];
+        return i;
+    }
+
 
     public static void main(String[] args) {
         char[] vexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
