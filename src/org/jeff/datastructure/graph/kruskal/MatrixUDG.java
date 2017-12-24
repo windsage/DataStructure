@@ -1,4 +1,4 @@
-package org.jeff.datastructure.kruskal;
+package org.jeff.datastructure.graph.kruskal;
 
 import java.util.Arrays;
 
@@ -7,6 +7,17 @@ public class MatrixUDG {
     private int[][] mMatrix;
     private int mEdgNum;//边的数量
     private static final int INF = Integer.MAX_VALUE;   // 最大值
+
+    private static class EData {
+        char start, end;
+        int weight;
+
+        EData(char start, char end, int weight) {
+            this.start = start;
+            this.end = end;
+            this.weight = weight;
+        }
+    }
 
 
     public MatrixUDG(char[] vexs, int[][] matrix) {

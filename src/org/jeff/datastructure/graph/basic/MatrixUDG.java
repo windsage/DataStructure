@@ -1,4 +1,4 @@
-package org.jeff.datastructure.graph;
+package org.jeff.datastructure.graph.basic;
 
 /**
  * 邻接矩阵无向图

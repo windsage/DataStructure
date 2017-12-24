@@ -1,4 +1,4 @@
-package org.jeff.datastructure.kruskal;
+package org.jeff.datastructure.graph.kruskal;
 
 public class ListUDG {
 
@@ -23,6 +23,19 @@ public class ListUDG {
             this.nextNode = null;
         }
     }
+
+
+    private static class EData {
+        char start, end;
+        int weight;
+
+        EData(char start, char end, int weight) {
+            this.start = start;
+            this.end = end;
+            this.weight = weight;
+        }
+    }
+
 
     private VNode[] mVexes;
     private EData[] mEdges;

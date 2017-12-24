@@ -1,4 +1,4 @@
-package org.jeff.datastructure.graph;
+package org.jeff.datastructure.graph.basic;
 
 import java.util.LinkedList;
 
