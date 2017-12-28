@@ -188,7 +188,8 @@ public class SplayTree<T extends Comparable<T>> {
                 r.left = tree;
                 r = tree;
                 tree = tree.left;
-            } else if (cmp > 0) {
+            }
+            else if (cmp > 0) {
                 if (tree.right == null)
                     break;
                 if (key.compareTo(tree.right.key) > 0) {
@@ -207,7 +208,8 @@ public class SplayTree<T extends Comparable<T>> {
                 l.right = tree;
                 l = tree;
                 tree = tree.right;
-            } else
+            }
+            else
                 break;
         }
         //这里是组合的过程，这里不懂
@@ -263,6 +265,22 @@ public class SplayTree<T extends Comparable<T>> {
         return tree;
     }
 
+
+    private SplayTreeNode<T> insert2(SplayTreeNode<T> tree, SplayTreeNode<T> z) {
+        if (tree == null)
+            return z;
+        int cmp = z.key.compareTo(tree.key);
+        if (cmp < 0)
+            tree.left = insert2(tree.left, z);
+        else if (cmp > 0)
+            tree.right = insert2(tree.right, z);
+        else {
+            System.out.println("不允许插入相同结点");
+            return tree;
+        }
+        return tree;
+    }
+
     public void insert(T key) {
         SplayTreeNode<T> z = new SplayTreeNode<T>(key, null, null);
 
@@ -275,6 +293,20 @@ public class SplayTree<T extends Comparable<T>> {
         // 将节点(key)旋转为根节点
         mRoot = splay(mRoot, key);
     }
+
+    public void insert2(T key) {
+        SplayTreeNode<T> z = new SplayTreeNode<T>(key, null, null);
+
+        // 如果新建结点失败，则返回。
+        if ((z = new SplayTreeNode<T>(key, null, null)) == null)
+            return;
+
+        // 插入节点
+        mRoot = insert2(mRoot, z);
+        // 将节点(key)旋转为根节点
+        mRoot = splay(mRoot, key);
+    }
+
 
     /*
      * 删除结点(z)，并返回被删除的结点
@@ -358,5 +390,43 @@ public class SplayTree<T extends Comparable<T>> {
     public void print() {
         if (mRoot != null)
             print(mRoot, mRoot.key, 0);
+    }
+
+    private static final int arr[] = {10,50,40,30,20,60};
+
+    public static void main(String[] args) {
+        int i, ilen;
+        SplayTree<Integer> tree=new SplayTree<Integer>();
+
+        System.out.print("== 依次添加: ");
+        ilen = arr.length;
+        for(i=0; i<ilen; i++) {
+            System.out.print(arr[i]+" ");
+            tree.insert(arr[i]);
+        }
+
+        System.out.print("\n== 前序遍历: ");
+        tree.preOrder();
+
+        System.out.print("\n== 中序遍历: ");
+        tree.inOrder();
+
+        System.out.print("\n== 后序遍历: ");
+        tree.postOrder();
+        System.out.println();
+
+        System.out.println("== 最小值: "+ tree.minimum());
+        System.out.println("== 最大值: "+ tree.maximum());
+        System.out.println("== 树的详细信息: ");
+        tree.print();
+
+        i = 30;
+        System.out.printf("\n== 旋转节点(%d)为根节点\n", i);
+        tree.splay(i);
+        System.out.printf("== 树的详细信息: \n");
+        tree.print();
+
+        // 销毁二叉树
+        tree.clear();
     }
 }

@@ -264,18 +264,41 @@ public class BinaryTree<Any extends Comparable<Any>> {
      * @param key
      * @return
      */
-    private void insertNode(BinaryNode<Any> root, Any key) {
+    private BinaryNode<Any> insertNode(BinaryNode<Any> root, Any key) {
         if (root == null)
-            return;
+            return new BinaryNode<>(key, null, null, null);
         int cmp = key.compareTo(root.data);
         if (cmp < 0) {
-            if (root.left != null)
-                insertNode(root.left, key);
+            root.left = insertNode(root.left, key);
         } else if (cmp > 0) {
-            if (root.right != null)
-                insertNode(root.right, key);
+            root.right = insertNode(root.right, key);
         }
+        return root;
+    }
 
+
+    private void insert(BinaryTree<Any> tree, BinaryNode<Any> z) {
+        BinaryNode<Any> x = tree.mRoot;
+        BinaryNode<Any> y = null;
+        int cmp;
+        while (x != null) {
+            y = x;
+            cmp = z.data.compareTo(x.data);
+            if (cmp < 0)
+                x = x.left;
+            else
+                x = x.right;
+        }
+        z.parent = y;
+        if (y == null)
+            tree.mRoot = z;
+        else {
+            cmp = z.data.compareTo(y.data);
+            if (cmp < 0)
+                y.left = z;
+            else
+                y.right = z;
+        }
     }
 
     /**
