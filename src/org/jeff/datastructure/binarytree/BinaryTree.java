@@ -274,7 +274,31 @@ public class BinaryTree<Any extends Comparable<Any>> {
             root.right = insertNode(root.right, key);
         }
         return root;
+    }
 
+
+    private void insert(BinaryTree<Any> tree, BinaryNode<Any> z) {
+        BinaryNode<Any> x = tree.mRoot;
+        BinaryNode<Any> y = null;
+        int cmp;
+        while (x != null) {
+            y = x;
+            cmp = z.data.compareTo(x.data);
+            if (cmp < 0)
+                x = x.left;
+            else
+                x = x.right;
+        }
+        z.parent = y;
+        if (y == null)
+            tree.mRoot = z;
+        else {
+            cmp = z.data.compareTo(y.data);
+            if (cmp < 0)
+                y.left = z;
+            else
+                y.right = z;
+        }
     }
 
     /**
