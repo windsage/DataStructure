@@ -2,7 +2,7 @@ package org.jeff.datastructure.binarytree;
 
 public class SplayTree<T extends Comparable<T>> {
 
-    private class SplayTreeNode<T extends Comparable<T>> {
+    private static class SplayTreeNode<T extends Comparable<T>> {
         public T key;
         public SplayTreeNode<T> left;
         public SplayTreeNode<T> right;
@@ -188,8 +188,7 @@ public class SplayTree<T extends Comparable<T>> {
                 r.left = tree;
                 r = tree;
                 tree = tree.left;
-            }
-            else if (cmp > 0) {
+            } else if (cmp > 0) {
                 if (tree.right == null)
                     break;
                 if (key.compareTo(tree.right.key) > 0) {
@@ -208,8 +207,7 @@ public class SplayTree<T extends Comparable<T>> {
                 l.right = tree;
                 l = tree;
                 tree = tree.right;
-            }
-            else
+            } else
                 break;
         }
         //这里是组合的过程，这里不懂
@@ -392,41 +390,62 @@ public class SplayTree<T extends Comparable<T>> {
             print(mRoot, mRoot.key, 0);
     }
 
-    private static final int arr[] = {10,50,40,30,20,60};
+    private static final int arr[] = {10, 50, 40, 30, 20, 60};
+
+    //    public static void main(String[] args) {
+//        int i, ilen;
+//        SplayTree<Integer> tree=new SplayTree<Integer>();
+//
+//        System.out.print("== 依次添加: ");
+//        ilen = arr.length;
+//        for(i=0; i<ilen; i++) {
+//            System.out.print(arr[i]+" ");
+//            tree.insert(arr[i]);
+//        }
+//
+//        System.out.print("\n== 前序遍历: ");
+//        tree.preOrder();
+//
+//        System.out.print("\n== 中序遍历: ");
+//        tree.inOrder();
+//
+//        System.out.print("\n== 后序遍历: ");
+//        tree.postOrder();
+//        System.out.println();
+//
+//        System.out.println("== 最小值: "+ tree.minimum());
+//        System.out.println("== 最大值: "+ tree.maximum());
+//        System.out.println("== 树的详细信息: ");
+//        tree.print();
+//
+//        i = 30;
+//        System.out.printf("\n== 旋转节点(%d)为根节点\n", i);
+//        tree.splay(i);
+//        System.out.printf("== 树的详细信息: \n");
+//        tree.print();
+//
+//        // 销毁二叉树
+//        tree.clear();
+//    }
+    public SplayTree(SplayTreeNode<T> node) {
+        this.mRoot = node;
+    }
 
     public static void main(String[] args) {
-        int i, ilen;
-        SplayTree<Integer> tree=new SplayTree<Integer>();
+        SplayTreeNode<Integer> node5 = new SplayTreeNode<>(5, null, null);
+        SplayTreeNode<Integer> node16 = new SplayTreeNode<>(16, null, null);
+        SplayTreeNode<Integer> node18 = new SplayTreeNode<>(18, node16, null);
+        SplayTreeNode<Integer> node13 = new SplayTreeNode<>(13, null, null);
+        SplayTreeNode<Integer> node15 = new SplayTreeNode<>(15, node13, node18);
+        SplayTreeNode<Integer> node24 = new SplayTreeNode<>(24, null, null);
+        SplayTreeNode<Integer> node20 = new SplayTreeNode<>(20, node15, node24);
+        SplayTreeNode<Integer> node30 = new SplayTreeNode<>(30, null, null);
+        SplayTreeNode<Integer> node25 = new SplayTreeNode<>(25, node20, node30);
+        SplayTreeNode<Integer> node12 = new SplayTreeNode<>(12, node5, node25);
 
-        System.out.print("== 依次添加: ");
-        ilen = arr.length;
-        for(i=0; i<ilen; i++) {
-            System.out.print(arr[i]+" ");
-            tree.insert(arr[i]);
-        }
-
-        System.out.print("\n== 前序遍历: ");
-        tree.preOrder();
-
-        System.out.print("\n== 中序遍历: ");
-        tree.inOrder();
-
-        System.out.print("\n== 后序遍历: ");
-        tree.postOrder();
-        System.out.println();
-
-        System.out.println("== 最小值: "+ tree.minimum());
-        System.out.println("== 最大值: "+ tree.maximum());
-        System.out.println("== 树的详细信息: ");
+        SplayTree<Integer> tree = new SplayTree<>(node12);
         tree.print();
-
-        i = 30;
-        System.out.printf("\n== 旋转节点(%d)为根节点\n", i);
-        tree.splay(i);
-        System.out.printf("== 树的详细信息: \n");
+        tree.splay(19);
         tree.print();
-
-        // 销毁二叉树
-        tree.clear();
     }
 }
