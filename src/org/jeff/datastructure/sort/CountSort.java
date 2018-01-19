@@ -28,12 +28,16 @@ public class CountSort {
         for (int i : a) {
             buckets[i - min]++;
         }
-        int index = 0;
-        for (int i = 0; i < buckets.length; i++) {
-            while (buckets[i] > 0) {
-                a[index++] = min + i;
-                buckets[i]--;
-            }
+        for (int i = 1; i < max - min + 1; i++) {
+            buckets[i] += buckets[i - 1];
+        }
+        int[] output = new int[a.length];
+        for (int i = a.length - 1; i >= 0; i--) {
+            output[buckets[a[i] - min] - 1] = a[i];
+            buckets[a[i] - min]--;
+        }
+        for (int i = 0; i < output.length; i++) {
+            a[i] = output[i];
         }
         System.out.println(Arrays.toString(a));
     }
