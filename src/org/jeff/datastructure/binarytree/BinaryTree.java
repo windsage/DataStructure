@@ -301,29 +301,73 @@ public class BinaryTree<Any extends Comparable<Any>> {
         }
     }
 
+
+    /**
+     * 查找x的后继结点
+     *
+     * @param x
+     * @return
+     */
+    private BinaryNode<Any> successor(BinaryNode<Any> x) {
+        if (x.right != null)
+            return findMin(x.right);
+        BinaryNode<Any> y = x.parent;
+        while (y != null && x == y.parent) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
+
+
+    /**
+     * 找到x结点的前驱
+     *
+     * @param x
+     * @return
+     */
+    private BinaryNode<Any> predecessor(BinaryNode<Any> x) {
+        if (x.left != null)
+            return findMax(x.left);
+        BinaryNode<Any> y = x.parent;
+        while (y != null && x == y.left) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
+
     /**
      * 二叉树删除结点
      *
-     * @param x
-     * @param root
+     * @param bst
+     * @param z
      * @return
      */
-    private BinaryNode<Any> remove(Any x, BinaryNode<Any> root) {
-        if (root == null)
-            return root;
-        int cmp = x.compareTo(root.data);
-        if (cmp < 0) {
-            remove(x, root.left);
-        } else if (cmp > 0) {
-            remove(x, root.right);
-        } else if (root.left != null && root.right != null) {
-            //cmp = 0
-            root.data = findMin(root.right).data;
-            root.right = remove(root.data, root.right);
-        } else {
-            root = root.left != null ? root.left : root.right;
-        }
-        return root;
+    private BinaryNode<Any> remove(BinaryTree<Any> bst, BinaryNode<Any> z) {
+        BinaryNode<Any> x = null;
+        BinaryNode<Any> y = null;
+        if (z.left != null || z.right == null)
+            y = z;
+        else
+            y = successor(z);
+        if (y.left != null)
+            x = y.left;
+        else
+            x = y.right;
+
+        if (x != null)
+            x.parent = y.parent;
+        if (y.parent == null)
+            bst.mRoot = x;
+        else if (y == y.parent.left) {
+            y.parent.left = x;
+        } else
+            y.parent.right = x;
+
+        if (y != z)
+            z.data = y.data;
+        return y;
     }
 
 }

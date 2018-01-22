@@ -281,8 +281,8 @@ public class RBTree<T extends Comparable<T>> {
      * 前序遍历"红黑树"
      */
     private void preOrder(RBTNode<T> tree) {
-        if(tree != null) {
-            System.out.print(tree.key+" ");
+        if (tree != null) {
+            System.out.print(tree.key + " ");
             preOrder(tree.left);
             preOrder(tree.right);
         }
@@ -296,9 +296,9 @@ public class RBTree<T extends Comparable<T>> {
      * 中序遍历"红黑树"
      */
     private void inOrder(RBTNode<T> tree) {
-        if(tree != null) {
+        if (tree != null) {
             inOrder(tree.left);
-            System.out.print(tree.key+" ");
+            System.out.print(tree.key + " ");
             inOrder(tree.right);
         }
     }
@@ -312,11 +312,10 @@ public class RBTree<T extends Comparable<T>> {
      * 后序遍历"红黑树"
      */
     private void postOrder(RBTNode<T> tree) {
-        if(tree != null)
-        {
+        if (tree != null) {
             postOrder(tree.left);
             postOrder(tree.right);
-            System.out.print(tree.key+" ");
+            System.out.print(tree.key + " ");
         }
     }
 
