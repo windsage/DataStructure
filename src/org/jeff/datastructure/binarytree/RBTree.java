@@ -70,6 +70,11 @@ public class RBTree<T extends Comparable<T>> {
             node.color = color;
     }
 
+    private void setParent(RBTNode<T> node, RBTNode<T> parent) {
+        if (node != null)
+            node.parent = parent;
+    }
+
     /**
      * 左旋转x结点
      *
@@ -321,5 +326,69 @@ public class RBTree<T extends Comparable<T>> {
 
     public void postOrder() {
         postOrder(mRoot);
+    }
+
+
+    private void remove(RBTNode<T> node) {
+        RBTNode<T> child, parent;
+        boolean color;
+        if (node.left != null && node.right != null) {
+            RBTNode<T> replace = node;
+            //获取后继结点，右孩子中的最小值
+            replace = replace.right;
+            while (replace.left != null) {
+                replace = replace.left;
+            }
+
+            if (parentOf(node) != null) {
+                if (parentOf(node).left == node) {
+                    parentOf(node).left = replace;
+                } else {
+                    parentOf(node).right = replace;
+                }
+            } else {
+                this.mRoot = replace;
+            }
+            //replace一定没有左孩子
+            child = replace.right;
+            parent = parentOf(replace);
+            color = colorOf(replace);
+
+            if (parent == node) {
+                parent = replace;
+            } else {
+                if (child != null)
+                    setParent(node, parent);
+                parent.left = child;
+                replace.right = node.right;
+                setParent(node.right, replace);
+            }
+            replace.left = node.left;
+            replace.color = node.color;
+            replace.parent = node.parent;
+            node.left.parent = replace;
+
+            if (color == BLACK)
+                removeFixUp(child, parent);
+            node = null;
+        } else {
+            if (node.left != null)
+                child = node.left;
+            else
+                child = node.right;
+            parent = node.parent;
+            color = node.color;
+            if (parent != null) {
+                if (parent.left == node)
+                    parent.left = child;
+                else if (parent.right == node)
+                    parent.right = child;
+            } else {
+                this.mRoot = child;
+            }
+            if (color == BLACK)
+                removeFixUp(child, parent);
+            node = null;
+        }
     }
 }
