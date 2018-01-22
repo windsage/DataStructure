@@ -373,6 +373,10 @@ public class BinaryTree<Any extends Comparable<Any>> {
     }
 
 
+    /**
+     * 二叉树的广度搜索
+     * @param root
+     */
     private void BFS(BinaryNode<Any> root) {
         if (root == null)
             return;
