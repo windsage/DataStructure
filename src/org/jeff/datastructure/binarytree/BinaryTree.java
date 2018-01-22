@@ -1,5 +1,7 @@
 package org.jeff.datastructure.binarytree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree<Any extends Comparable<Any>> {
@@ -368,6 +370,22 @@ public class BinaryTree<Any extends Comparable<Any>> {
         if (y != z)
             z.data = y.data;
         return y;
+    }
+
+
+    private void BFS(BinaryNode<Any> root) {
+        if (root == null)
+            return;
+        Queue<BinaryNode<Any>> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            BinaryNode<Any> cur = queue.poll();
+            System.out.print(cur.data + " ");
+            if (cur.left != null)
+                queue.offer(cur.left);
+            if (cur.right != null)
+                queue.offer(cur.right);
+        }
     }
 
 }
