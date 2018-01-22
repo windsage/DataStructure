@@ -165,7 +165,7 @@ public class SingleLinkWithHead<T> {
         SingleNode<T> previous = head;
         SingleNode<T> current = head.next;
         set.add(head.data);
-        while (previous != null) {
+        while (current != null) {
             if (!set.contains(previous.data)) {
                 set.add(previous.data);
                 previous = current;
@@ -278,6 +278,34 @@ public class SingleLinkWithHead<T> {
         return h1 == h2;
     }
 
-    
+    private boolean isLoop() {
+        SingleNode<T> fast = head;
+        SingleNode<T> slow = head;
+        while (slow.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
+                return true;
+        }
+        return false;
+    }
+
+
+    private SingleNode<T> findLoopNode() {
+        SingleNode<T> fast = head;
+        SingleNode<T> slow = head;
+        while (slow.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
+                break;
+        }
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
 
 }
