@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class BubbleSort {
 
-    private static final int[] TEST_ARRAY = {20, 40, 30, 10, 60, 50};
+    private static final int[] TEST_ARRAY = {12, 4, 6, 10, 33, 47, 23, 9, 29, 43, 54, 25};
 
     /**
      * 冒泡算法第一版
@@ -42,9 +42,9 @@ public class BubbleSort {
                     array[j + 1] = temp;
                     flag = true;
                 }
-                if (!flag)
-                    break;
             }
+            if (!flag)
+                break;
         }
         System.out.println(Arrays.toString(array));
     }
