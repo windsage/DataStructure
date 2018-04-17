@@ -90,16 +90,16 @@ public class BinaryTree<Any extends Comparable<Any>> {
         if (root == null)
             return;
         Stack<BinaryNode<Any>> stack = new Stack<>();
-        stack.push(root);
-        while (!stack.isEmpty() || root != null) {
-            while (root != null) {
-                stack.push(root.left);
-                root = root.left;
+        BinaryNode<Any> cur = root;
+        while (!stack.isEmpty() || cur != null) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
             }
             if (!stack.isEmpty()) {
-                BinaryNode<Any> node = stack.pop();
-                System.out.println(node.data);
-                root = root.right;
+                cur = stack.pop();
+                System.out.println(cur.data);
+                cur = cur.right;
             }
         }
     }
